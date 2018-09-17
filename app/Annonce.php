@@ -15,4 +15,9 @@ class Annonce extends Model
     {
         return $this->hasOne('App\Categorie');
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
 }

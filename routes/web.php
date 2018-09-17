@@ -11,17 +11,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
+Route::get('/', 'AnnonceController@show')->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'AnnonceController@show')->name('home');
 
-Route::get('/annonce/create', 'AnnonceController@create');
+Route::get('/annonce/create', 'AnnonceController@create', function () {
+    // Only authenticated users may enter...
+})->middleware('auth');
 
 Route::get('/annonce/show', 'AnnonceController@show');
+
+Route::get('/annonce/showone/{id}', 'AnnonceController@showone');
 
 Route::post('/annonce/create', 'AnnonceController@store', function () {
     // Only authenticated users may enter...
@@ -29,5 +34,9 @@ Route::post('/annonce/create', 'AnnonceController@store', function () {
 
 Route::get('/categorie/create', 'CategorieController@create');
 Route::post('/categorie/create', 'CategorieController@store', function () {
+    // Only authenticated users may enter...
+})->middleware('auth');
+
+Route::post('/addcomment', 'AnnonceController@addcomment', function () {
     // Only authenticated users may enter...
 })->middleware('auth');

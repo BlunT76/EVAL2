@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Annonce;
 use Illuminate\Http\Request;
 use App\Categorie;
+use App\Comment;
+use App\User;
 
 class AnnonceController extends Controller
 {
@@ -60,7 +62,11 @@ class AnnonceController extends Controller
             } else {
                 $post->price = $request->price;
             }
-            $post->imgurl = $request->imgurl;
+            if(!isset($request->imgurl)){
+                $post->imgurl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/640px-No_image_3x4.svg.png';
+            } else {
+                $post->imgurl = $request->imgurl;
+            }
             $post->categorie_id = $request->categorie_id;
             $post->categorie_title = $cat->title;
 
@@ -122,5 +128,42 @@ class AnnonceController extends Controller
     public function destroy(Annonce $annonce)
     {
         //
+    }
+
+    /**
+     * @param int $id
+     * @return Response
+     */
+    public function showone($id){
+        //$email = Annonce::find($id)->user();
+        $ann = Annonce::findOrFail($id);
+        $annid = $ann->user_id;
+        //$email = User::where('id', $annid);
+        $email = User::select('email')->where('id', $annid)->first();
+        
+        return view('annonce/showone', [
+            'annonces' => $ann,
+            'comments' => Comment::where('annonce_id', $id)->paginate(5),
+            'email' => $email
+         ]);
+    }
+
+    /**
+     * 
+     * @param Request $request
+     * @return Response
+     */
+
+    public function addcomment(Request $request){
+        
+        $user = $request->user()->name;
+        $id = $request->id;
+        $comment = new Comment;
+        $comment->content = $request->content;
+        $comment->annonce_id = $request->id;
+        $comment->user_name = $user;
+        $comment->save();
+
+        return redirect('/annonce/showone/'.$id);
     }
 }
