@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Annonce;
 use Illuminate\Http\Request;
+use App\Categorie;
 
 class AnnonceController extends Controller
 {
@@ -24,7 +25,8 @@ class AnnonceController extends Controller
      */
     public function create()
     {
-        return view('annonce/create');
+        $cat = Categorie::all();
+        return view('annonce/create', ['cat' => $cat]);
     }
 
     /**
@@ -37,6 +39,8 @@ class AnnonceController extends Controller
     {
         $user_id = $request->user()->id;
         $user_name = $request->user()->name;
+        $cat = Categorie::find($request->categorie_id);
+        $cat_title = $cat['title'];
 
         // if($request->has('id')){
         //     $post = Post::find($request->id);
@@ -56,6 +60,10 @@ class AnnonceController extends Controller
             } else {
                 $post->price = $request->price;
             }
+            $post->imgurl = $request->imgurl;
+            $post->categorie_id = $request->categorie_id;
+            $post->categorie_title = $cat->title;
+
             $post->save();
             //$tags = explode(",", $request->tags);
             //$post->tag($tags);

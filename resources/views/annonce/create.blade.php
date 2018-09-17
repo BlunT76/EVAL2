@@ -15,10 +15,25 @@
             <textarea class="form-control" name="content" type="textarea" rows="10"></textarea>
         </div>
         <div class="form-group mb-1">
+            <label for="title">Image link</label>
+            <input class="form-control" name="imgurl" type="text">
+        </div>
+        <div class="form-group mb-1">
             <label for="content">Price (optionnal)</label>
             <input class="form-control" name="price" type="number">
         </div>
-        
+        <div class="form-row align-items-center">
+
+        <div>
+        <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+        <select name="categorie_id" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+        <option selected>Choose...</option>
+        @foreach($cat as $val)
+            <option value="{{ $val->id }}">{{$val->title}}</option>
+        @endforeach
+        </select>
+        </div>
+
         <div class="form-group mb-1">
             <button class="btn btn-sm btn-outline-secondary mt-1" type="submit">Ok</button>
         </div>

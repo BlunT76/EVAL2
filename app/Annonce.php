@@ -10,4 +10,9 @@ class Annonce extends Model
     {
         return $this->hasOne('App\User');
     }
+
+    public function categorie()
+    {
+        return $this->hasOne('App\Categorie');
+    }
 }

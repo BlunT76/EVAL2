@@ -26,3 +26,8 @@ Route::get('/annonce/show', 'AnnonceController@show');
 Route::post('/annonce/create', 'AnnonceController@store', function () {
     // Only authenticated users may enter...
 })->middleware('auth');
+
+Route::get('/categorie/create', 'CategorieController@create');
+Route::post('/categorie/create', 'CategorieController@store', function () {
+    // Only authenticated users may enter...
+})->middleware('auth');

@@ -3,13 +3,15 @@
 @section('content')
 <div class="container">
     @foreach($annonces as $val)
-    <div class="card mb-5 shadow-sm">
+    <div class="card mb-5 shadow-sm" style="width: 18rem;">
         <div class="card-header">
             <span>
             <h5>{{ $val->title }}</h5> by {{ $val->user_id }}
             </span>
         </div>
-
+        <div>
+            <img src="{{ $val->imgurl }}" alt="{{ $val->title }}" style="width: 18rem;">
+        </div>
         <div class="card-body">
             {{ $val->content }}<br>
         </div>

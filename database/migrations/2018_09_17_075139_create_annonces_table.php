@@ -20,6 +20,9 @@ class CreateAnnoncesTable extends Migration
             $table->integer('price');
             $table->integer('user_id');
             $table->string('user_name');
+            $table->text('imgurl');
+            $table->integer('categorie_id');
+            $table->string('categorie_title');
             $table->timestamps();
         });
     }
