@@ -5,9 +5,11 @@
     <!-- Show post -->
     <div class="card mb-3 shadow-sm">
         <div class="card-header"><span><h5>{{ $annonces->title }}</h5>  by {{ $annonces->user_name }}</span></div>
-        <div>
-            <img src="{{ $annonces->imgurl }}" alt="{{ $annonces->title }}">
-        </div>
+        @if ($annonces->imgurl != "")
+            <div>
+                <img src="{{ $annonces->imgurl }}" alt="{{ $annonces->title }}" class="img-fluid">
+            </div>
+        @endif
         <div class="card-body">
             {{ $annonces->content }}
         </div>

@@ -40,3 +40,11 @@ Route::post('/categorie/create', 'CategorieController@store', function () {
 Route::post('/addcomment', 'AnnonceController@addcomment', function () {
     // Only authenticated users may enter...
 })->middleware('auth');
+
+Route::get('/annonce/searchannonce', 'AnnonceController@searchannonce', function () {
+    // Only authenticated users may enter...
+})->middleware('auth');
+
+Route::get('/annonce/destroy/{id}', 'AnnonceController@destroy', function () {
+    // Only authenticated users may enter...
+})->middleware('auth');

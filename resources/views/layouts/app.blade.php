@@ -34,9 +34,10 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li>
-                        <a class="navbar" href="/annonce/create">
-                    Donate an object
-                </a>
+                        <a class="navbar" href="/annonce/create">Donnez un objet</a>
+                        </li>
+                        <li>
+                        <a class="navbar" href="/annonce/searchannonce">Demander un objet</a>
                         </li>
                     </ul>
 

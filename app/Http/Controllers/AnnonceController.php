@@ -53,7 +53,12 @@ class AnnonceController extends Controller
         //     $post->save();
         // } else {
             $post = new Annonce;
-            $post->title = $request->title;
+            if(!isset($request->title)){
+                $post->title = "RECHERCHE";
+            } else {
+                $post->title = $request->title;
+            }
+            //$post->title = $request->title;
             $post->content = $request->content;
             $post->user_id = $user_id;
             $post->user_name = $user_name;
@@ -63,7 +68,7 @@ class AnnonceController extends Controller
                 $post->price = $request->price;
             }
             if(!isset($request->imgurl)){
-                $post->imgurl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/640px-No_image_3x4.svg.png';
+                $post->imgurl = '';
             } else {
                 $post->imgurl = $request->imgurl;
             }
@@ -122,12 +127,14 @@ class AnnonceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Annonce  $annonce
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Annonce $annonce)
+    public function destroy($id)
     {
-        //
+        Annonce::destroy($id);
+        Comment::where('annonce_id', $id)->delete();
+        return redirect('/annonce/show');
     }
 
     /**
@@ -165,5 +172,16 @@ class AnnonceController extends Controller
         $comment->save();
 
         return redirect('/annonce/showone/'.$id);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function searchannonce()
+    {
+        $cat = Categorie::all();
+        return view('annonce/searchannonce', ['cat' => $cat]);
     }
 }
